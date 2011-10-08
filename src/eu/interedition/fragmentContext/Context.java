@@ -4,6 +4,6 @@ public interface Context {
 
 	public boolean verify(Primary primary);
 	
-	public Fragment match(Primary primary);
+	public Constraint match(Primary primary);
 	
 }

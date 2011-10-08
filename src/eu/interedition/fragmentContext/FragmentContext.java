@@ -4,8 +4,8 @@ import java.net.URI;
 
 public interface FragmentContext {
 
-	public Context generateContext(Primary primary, Fragment fragment);
+	public Context generateContext(Primary primary, Constraint fragment);
 
-	public Fragment matchFragment (Primary primary, Context context, Fragment fragment);
+	public Constraint matchFragment (Primary primary, Context context, Constraint fragment);
 
 }
