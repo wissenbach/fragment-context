@@ -1,6 +1,5 @@
 package eu.interedition.fragmentContext;
 
-import java.net.URI;
 
 public interface FragmentContext {
 

@@ -3,9 +3,10 @@ package eu.interedition.fragmentContext.text;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
+import de.tud.kom.stringmatching.shinglecloud.ShingleCloud;
+import de.tud.kom.stringutils.tokenization.CharacterTokenizer;
 import eu.interedition.fragmentContext.Constraint;
 import eu.interedition.fragmentContext.Context;
 import eu.interedition.fragmentContext.Primary;
@@ -15,7 +16,7 @@ public class TextContext implements Context {
 	public static enum HashType {
 		MD5, SHA, Length
 	};
-
+	
 	private byte[] checkSum;
 
 	private HashType checkSumType;
@@ -66,7 +67,6 @@ public class TextContext implements Context {
 	public boolean verify(Primary primary) {
 		if (!(primary instanceof TextPrimary))
 			throw new IllegalArgumentException();
-
 		TextPrimary textPrimary = (TextPrimary) primary;
 
 		byte[] digest = checkSum(textPrimary.getContent(), this.checkSumType);
@@ -77,8 +77,38 @@ public class TextContext implements Context {
 	}
 
 	@Override
-	public Constraint match(Primary primary) {
-		return null;
+	public Constraint match(Primary primary) throws Context.NoMatchFoundException {
+		if (!(primary instanceof TextPrimary))
+			throw new IllegalArgumentException();
+		TextPrimary textPrimary = (TextPrimary) primary;
+		
+		ShingleCloud sc = new ShingleCloud(textPrimary.getContent());
+		
+		sc.setTokenizer(new CharacterTokenizer());
+		sc.setNGramSize(2);
+		sc.setMinimumNumberOfOnesInMatch(1);
+		sc.setSortMatchesByRating(true);
+		
+		//find the text before the annotation
+		sc.match(this.beforeContext);
+		if (sc.getMatches().isEmpty())
+			throw new Context.NoMatchFoundException();
+		
+		int startPos = sc.getMatches().get(0).getStart() +
+			sc.getMatches().get(0).getLength();	
+		
+		//find text after annotation
+		sc.match(this.afterContext);
+		if (sc.getMatches().isEmpty())
+			throw new Context.NoMatchFoundException();
+		
+		int endPos = sc.getMatches().get(0).getStart();
+		
+		//sanity check
+		if (endPos < startPos)
+			throw new Context.NoMatchFoundException();
+			
+		return new TextConstraint(startPos, endPos);
 	}
 
 }
