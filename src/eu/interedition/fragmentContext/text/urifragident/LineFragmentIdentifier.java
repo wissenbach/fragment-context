@@ -10,6 +10,36 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 		super();
 		setRange(range);
 	}
+	
+	public Integer getCharacterStartPos(String primarySource) {
+		if (getStartPos() == null) {
+			return 0;
+		}
+		return getCharacterPos(primarySource, getStartPos());
+	}
+	
+	public Integer getCharacterEndPos(String primarySource) {
+		if (getEndPos() == null) {
+			return primarySource.length();
+		}
+ 		return getCharacterPos(primarySource, getEndPos());
+	}
+	
+	private Integer getCharacterPos(String primarySource, int line) {
+		Scanner scanner = new Scanner(primarySource);
+		int linePosition=0;
+		int characterPos=0;
+		while(scanner.hasNextLine()) {
+			String curLine = scanner.nextLine();
+			if (linePosition == line) {
+				return characterPos;
+			}
+			characterPos+=curLine.length()+1;
+			linePosition++;
+		}
+				
+		return primarySource.length();
+	}
 
 	@Override
 	public String getTextFragmentFrom(String primarySource) {
@@ -21,10 +51,13 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 			if ((linePosition >= getStartPos()) && (linePosition < getEndPos())) {
 				lineRecorder.append(curLine);
 			}
+			else if (linePosition >= getEndPos()) {
+				break;
+			}
 			linePosition++;
 		}
 		
-		return null;
+		return lineRecorder.toString();
 	}
 
 }

@@ -19,7 +19,7 @@ public class Range {
 	}
 	
 	public void setStartPos(String startPos) {
-		this.startPos = Integer.valueOf(startPos);
+		this.startPos = (startPos == null) ? null : Integer.valueOf(startPos);
 	}
 	
 	public Integer getEndPos() {
@@ -27,7 +27,7 @@ public class Range {
 	}
 	
 	public void setEndPos(String endPos) {
-		this.endPos = Integer.valueOf(endPos);
+		this.endPos = (endPos == null) ? null : Integer.valueOf(endPos);
 	}
 
 	@Override
