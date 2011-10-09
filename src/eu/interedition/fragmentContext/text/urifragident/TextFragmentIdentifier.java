@@ -55,6 +55,14 @@ public abstract class TextFragmentIdentifier {
 		return range.getEndPos();
 	}
 	
+	public Integer getCharacterStartPos(String primarySource) {
+		return (range.getStartPos()==null) ? 0 : range.getStartPos();
+	}
+	
+	public Integer getCharacterEndPos(String primarySource) {
+		return (range.getEndPos()==null) ? primarySource.length() : range.getEndPos();
+	}
+	
 	public void setRange(Range range) {
 		this.range = range;
 	}

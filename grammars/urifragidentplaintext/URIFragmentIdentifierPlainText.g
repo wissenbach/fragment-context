@@ -36,6 +36,23 @@ public void reportError(RecognitionException e) {
 
 @parser::members {
 
+class IntegrityCheckParams {
+	String md5;
+	Integer length;
+	String mimeCharset;
+	public IntegrityCheckParams(Integer length, String mimeCharset) {
+		super();
+		this.length = length;
+		this.mimeCharset = mimeCharset;
+	}
+	public IntegrityCheckParams(String md5, String mimeCharset) {
+		super();
+		this.md5 = md5;
+		this.mimeCharset = mimeCharset;
+	}
+	
+}
+
 private TextFragmentIdentifier textfragmentIdentifier = null;
 
 public TextFragmentIdentifier getTextFragmentIdentifier() {
@@ -84,9 +101,11 @@ textFragment
 	:	textScheme (';' integrityCheck)*
 		{
 			textfragmentIdentifier = $textScheme.textfragmentIdentifier;
-			textfragmentIdentifier.setLength($integrityCheck.integrityCheckParams.length);
-			textfragmentIdentifier.setMd5HexValue($integrityCheck.integrityCheckParams.md5);
-			textfragmentIdentifier.setMimeCharset($integrityCheck.integrityCheckParams.mimeCharset);
+			if ($integrityCheck.integrityCheckParams != null) {
+				textfragmentIdentifier.setLength($integrityCheck.integrityCheckParams.length);
+				textfragmentIdentifier.setMd5HexValue($integrityCheck.integrityCheckParams.md5);
+				textfragmentIdentifier.setMimeCharset($integrityCheck.integrityCheckParams.mimeCharset);
+			}
 		}
 	;	
 	catch[RecognitionException e] {throw e;}
@@ -105,32 +124,18 @@ textScheme returns [TextFragmentIdentifier textfragmentIdentifier]
 	catch[RecognitionException e] {throw e;}
 	
 charScheme returns [TextFragmentIdentifier textfragmentIdentifier]
-	:	CHAR_S EQUAL 
-		(position 
-			{
-			$textfragmentIdentifier = new CharFragmentIdentifier(new Range($position.text));
-			}
-		| range
+	:	CHAR_S EQUAL range
 			{
 			$textfragmentIdentifier = new CharFragmentIdentifier($range.range);
 			}
-		
-		) 
 	;
 	catch[RecognitionException e] {throw e;}
 			
 lineScheme returns [TextFragmentIdentifier textfragmentIdentifier]
-	:	LINE_S EQUAL 
-		(position 
-			{
-			$textfragmentIdentifier = new LineFragmentIdentifier(new Range($position.text));
-			}
-		| range
+	:	LINE_S EQUAL range
 			{
 			$textfragmentIdentifier = new LineFragmentIdentifier($range.range);
 			}
-		
-		) 
 	;	
 	catch[RecognitionException e] {throw e;}
 	
@@ -152,11 +157,16 @@ position
 	catch[RecognitionException e] {throw e;}
 	
 range 	returns [Range range]
-	:	(position1=position ',' position2=position?) 
+	:	(position1=position (comma1=',' | (comma2=',' position2=position))?)
 		{
 		$range = new Range();
 		$range.setStartPos($position1.text);
-		$range.setEndPos($position2.text);
+		if ($comma2.text != null) {
+			$range.setEndPos($position2.text);
+		}
+		else if ($comma1.text == null) {
+			$range.setEndPos($position1.text);	
+		}
 		}
 		| (',' position) 
 		{
@@ -184,17 +194,18 @@ md5Scheme returns [String md5]
 	catch[RecognitionException e] {throw e;}
 	
 mimeCharset 
-	:	MIMECHARSETCHARS+
+	:	MIMECHARS+
 	;
 	catch[RecognitionException e] {throw e;}
 
-MIMECHARSETCHARS 
-	:	ALPHA | DIGIT | '!' | '#' | '$' | '%' | '&' | '\'' | '+' | '-' | '^' | '_' | '`' | '{' | '}' | '~'
-	;
-
 INT	:	DIGIT+
 	;
+
+MIMECHARS 
+	:	(ALPHA | INT | '!' | '#' | '$' | '%' | '&' | '\'' | '+' | '-' | '^' | '_' | '`' | '{' | '}' | '~')+
+	;
 	
+
 MD5VALUE 
 	:	HEXDIGIT+
 	;
