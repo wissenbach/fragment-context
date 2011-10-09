@@ -42,6 +42,16 @@ public class TextContext implements Context {
 		this.beforeContext = primary.getContent().substring(beforeStart, beforeEnd);
 		this.afterContext = primary.getContent().substring(afterStart, afterEnd);
 	}
+	
+	public TextContext(TextConstraint constraint, byte[] checkSum,
+			HashType checkSumType, String beforeContext, String afterContext) {
+		super();
+		this.checkSumType = checkSumType;
+		this.checkSum = checkSum;
+		
+		this.beforeContext = beforeContext;
+		this.afterContext = afterContext;
+	}
 
 	static byte[] checkSum(String content, HashType checksumType) {
 		byte[] contentBytes;
