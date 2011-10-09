@@ -1,3 +1,4 @@
+package eu.interedition.fragmentContext.text.urifragident;
 import junit.framework.Assert;
 
 import org.antlr.runtime.RecognitionException;
