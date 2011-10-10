@@ -84,4 +84,33 @@ public abstract class TextFragmentIdentifier {
 		return "RANGE" + range + " LENGTH[" + getLength() + "] MD5[" + getMd5HexValue() + "] MIMECHARSET[" + getMimeCharset() + "]";  
 	}
 
+	public abstract String getTextSchemeName();
+	
+	public String getTextScheme() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getTextSchemeName());
+	
+		if (getStartPos() == getEndPos()) {
+			if (getStartPos() != null) {
+				builder.append(getStartPos());
+			}
+		}
+		else {
+			if (getStartPos() == null) {
+				builder.append(",");
+				builder.append(getEndPos());
+			}
+			else if (getEndPos() == null) {
+				builder.append(getStartPos());
+				builder.append(",");
+			}
+			else {
+				builder.append(getStartPos());
+				builder.append(",");
+				builder.append(getEndPos());
+			}
+		}
+		return builder.toString();
+	}
+
 }

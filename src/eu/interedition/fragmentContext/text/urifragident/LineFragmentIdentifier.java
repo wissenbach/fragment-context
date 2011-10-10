@@ -3,8 +3,6 @@ package eu.interedition.fragmentContext.text.urifragident;
 import java.util.Scanner;
 
 public class LineFragmentIdentifier extends TextFragmentIdentifier {
-
-	
 	
 	public LineFragmentIdentifier(Range range) {
 		super();
@@ -60,4 +58,8 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 		return lineRecorder.toString();
 	}
 
+	@Override
+	public String getTextSchemeName() {
+		return "line=";
+	}
 }

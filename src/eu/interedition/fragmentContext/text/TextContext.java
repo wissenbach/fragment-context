@@ -53,7 +53,7 @@ public class TextContext implements Context {
 		this.afterContext = afterContext;
 	}
 
-	public static byte[] checkSum(String content, HashType checksumType) {
+	static byte[] checkSum(String content, HashType checksumType) {
 		byte[] contentBytes;
 		try {
 			contentBytes = content.getBytes("UTF-8");
@@ -121,4 +121,15 @@ public class TextContext implements Context {
 		return new TextConstraint(startPos, endPos);
 	}
 
+	public byte[] getCheckSum() {
+		return checkSum;
+	}
+	
+	public String getBeforeContext() {
+		return beforeContext;
+	}
+	
+	public String getAfterContext() {
+		return afterContext;
+	}
 }

@@ -13,4 +13,9 @@ public class CharFragmentIdentifier extends TextFragmentIdentifier {
 		return primarySource.substring(getStartPos(), getEndPos());
 	}
 
+	@Override
+	public String getTextSchemeName() {
+		return "char=";
+	}
+
 }

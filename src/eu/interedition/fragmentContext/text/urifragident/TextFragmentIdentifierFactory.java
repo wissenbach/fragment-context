@@ -17,6 +17,9 @@ public class TextFragmentIdentifierFactory {
 	}
 	
 	public TextFragmentIdentifier createTextFragmentIdentifier(String fragmentIdentifier) throws RecognitionException {
+		if ((fragmentIdentifier == null) || (fragmentIdentifier.isEmpty())) {
+			return new FulltextFragmentIdentifier();
+		}
 		ANTLRInputStream is;
 		try {
 			is = new ANTLRInputStream(IOUtils.toInputStream(fragmentIdentifier));
