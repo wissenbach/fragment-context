@@ -53,7 +53,7 @@ public class TextContext implements Context {
 		this.afterContext = afterContext;
 	}
 
-	static byte[] checkSum(String content, HashType checksumType) {
+	public static byte[] checkSum(String content, HashType checksumType) {
 		byte[] contentBytes;
 		try {
 			contentBytes = content.getBytes("UTF-8");
