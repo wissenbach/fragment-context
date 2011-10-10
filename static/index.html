@@ -18,18 +18,29 @@ currently only 'text/plain'
 create a constraint from a given range. for plain text the expressions follow 
 <a href="http://tools.ietf.org/html/rfc5147">RFC 5147</a> <br>
 example: POST JSON like:<br>
-<code>
-xyz
-</code>
+<pre>
+{ 
+	"uri" : "http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57", 
+	"constraint" : 
+	{ 
+		"position" : "line=51,57"
+	}
+}
+</pre>
 <br>
 answer:
 <br>
-<code>
-xyz
-</code>
-
-
-
+<pre>
+{
+	"constraint": 
+	{
+		"position":"line=51,57",
+		"context":"{\"after\":\"hat she ought to hav\",\"before\":\"\\npicking the daisies\"}",
+		"checksum":"3e899c5d9f39cbf8be8d42ad2ef74605"
+	},
+	"uri":"http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57"
+}
+</pre>
 </div>
 </body>
 </html>

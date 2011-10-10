@@ -21,7 +21,7 @@ public class ConstraintServer {
 		// INDEX PAGE
 		
 		// URI of the root directory.
-		final String ROOT_URI = "file://" + System.getProperty("user.dir")
+		final String ROOT_URI = "file:///" + System.getProperty("user.dir")
 		+ "/static/";
 		
 		final Router router = new Router(component.getContext().createChildContext());

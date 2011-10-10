@@ -60,16 +60,20 @@ public class ConstraintFactory extends ServerResource{
 				new TextContext(primary, constraint, HashType.MD5, 20);
 				
 		JSONObject jsonResult = new JSONObject();
-		jsonResult.put("checksum", new BigInteger(context.getCheckSum()).toString(16));
-		jsonResult.put("position", textFragmentIdentifier.getTextScheme());
+		jsonResult.put("uri", jsonArgs.getString("uri"));
+		
+		JSONObject jsonConstraint = new JSONObject();
+		jsonConstraint.put("checksum", new BigInteger(context.getCheckSum()).toString(16));
+		jsonConstraint.put("position", textFragmentIdentifier.getTextScheme());
 		
 		JSONObject jsonContext = new JSONObject();
 		jsonContext.put("before", context.getBeforeContext());
 		jsonContext.put("after", context.getAfterContext());
 		
-		jsonResult.put("context", jsonContext.toString());
+		jsonConstraint.put("context", jsonContext.toString());
 		
-				
+		jsonResult.put("constraint", jsonConstraint);
+		
 		System.out.println(jsonResult.toString());
 		
 		return jsonResult.toString();
