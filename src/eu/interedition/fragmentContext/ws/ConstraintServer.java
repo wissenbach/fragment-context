@@ -39,6 +39,8 @@ public class ConstraintServer {
 		router.attach("/create", ConstraintFactory.class);
 		component.getDefaultHost().attach("/oac-constraint", router);
 		
+		router.attach("/match", ConstraintMatcher.class);
+		component.getDefaultHost().attach("/oac-constraint", router);
 		
 		component.start();
 	}
