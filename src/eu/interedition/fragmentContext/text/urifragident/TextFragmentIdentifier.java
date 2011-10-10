@@ -2,7 +2,10 @@ package eu.interedition.fragmentContext.text.urifragident;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 
 
@@ -31,6 +34,10 @@ public abstract class TextFragmentIdentifier {
 		return md5HexValue;
 	}
 
+	public byte[] getMd5HexValueAsBytes() throws DecoderException {
+		return Hex.decodeHex(getMd5HexValue().toCharArray());
+	}
+	
 	public void setMd5HexValue(String md5HexValue) {
 		if (md5HexValue!=null) {
 			this.md5HexValue = md5HexValue;

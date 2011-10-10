@@ -95,8 +95,8 @@ public class TextContext implements Context {
 		ShingleCloud sc = new ShingleCloud(textPrimary.getContent());
 		
 		sc.setTokenizer(new CharacterTokenizer());
-		sc.setNGramSize(2);
-		sc.setMinimumNumberOfOnesInMatch(1);
+		sc.setNGramSize(5);
+		sc.setMinimumNumberOfOnesInMatch(5);
 		sc.setSortMatchesByRating(true);
 		
 		//find the text before the annotation

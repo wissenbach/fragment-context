@@ -14,6 +14,11 @@ public class Range {
 		setEndPos(position);
 	}
 
+	public Range(int startPos, int endPos) {
+		this.startPos = startPos;
+		this.endPos = endPos;
+	}
+
 	public Integer getStartPos() {
 		return startPos;
 	}

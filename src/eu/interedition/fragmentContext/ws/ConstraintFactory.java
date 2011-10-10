@@ -1,12 +1,8 @@
 package eu.interedition.fragmentContext.ws;
 
-import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -25,31 +21,14 @@ public class ConstraintFactory extends ServerResource{
 	public String createConstraint(String args) throws Exception {
 		
 		JSONObject jsonArgs = new JSONObject(args);
-		
-		URI targetURI = new URI(jsonArgs.getString("uri"));
-		if (targetURI.getFragment() == null) { 
-			String constraintPosition = 
-					jsonArgs.getJSONObject("constraint").getString("position");
-			if (constraintPosition != null){
-				targetURI = new URI(jsonArgs.getString("uri")+ "#" + constraintPosition);
-			}
-		}
+		ArgumentsParser argsParser = new ArgumentsParser(jsonArgs);
+		URI targetURI = argsParser.getTargetURI();
 		
 		TextFragmentIdentifierFactory factory = new TextFragmentIdentifierFactory();
 		TextFragmentIdentifier textFragmentIdentifier = 
 				factory.createTextFragmentIdentifier(targetURI.getFragment());
 		
-		URL targetURL = targetURI.toURL();
-		URLConnection targetURLConnection = targetURL.openConnection();
-		InputStream targetInputStream = targetURLConnection.getInputStream();
-
-		
-		String encoding = findEncoding(targetURLConnection);
-		
-		TextPrimary primary = new TextPrimary(
-				IOUtils.toString(targetInputStream, encoding));
-		
-		targetInputStream.close();
+		TextPrimary primary = argsParser.getPrimary();
 		
 		TextConstraint constraint = 
 				new TextConstraint(
@@ -60,49 +39,35 @@ public class ConstraintFactory extends ServerResource{
 				new TextContext(primary, constraint, HashType.MD5, 20);
 				
 		JSONObject jsonResult = new JSONObject();
-		jsonResult.put("uri", jsonArgs.getString("uri"));
+		jsonResult.put(ArgumentsParser.Field.uri.name(), 
+				jsonArgs.getString(ArgumentsParser.Field.uri.name()));
 		
 		JSONObject jsonConstraint = new JSONObject();
-		jsonConstraint.put("checksum", new BigInteger(context.getCheckSum()).toString(16));
-		jsonConstraint.put("position", textFragmentIdentifier.getTextScheme());
+		jsonConstraint.put(
+				ArgumentsParser.Field.checksum.name(), 
+				new BigInteger(context.getCheckSum()).toString(16));
+		jsonConstraint.put(
+				ArgumentsParser.Field.position.name(), 
+				textFragmentIdentifier.getTextScheme());
 		
 		JSONObject jsonContext = new JSONObject();
-		jsonContext.put("before", context.getBeforeContext());
-		jsonContext.put("after", context.getAfterContext());
+		jsonContext.put(
+				ArgumentsParser.Field.before.name(), 
+				context.getBeforeContext());
+		jsonContext.put(
+				ArgumentsParser.Field.after.name(), 
+				context.getAfterContext());
 		
-		jsonConstraint.put("context", jsonContext.toString());
+		jsonConstraint.put(
+				ArgumentsParser.Field.context.name(), 
+				jsonContext.toString());
 		
-		jsonResult.put("constraint", jsonConstraint);
+		jsonResult.put(
+				ArgumentsParser.Field.constraint.name(), 
+				jsonConstraint);
 		
 		System.out.println(jsonResult.toString());
 		
 		return jsonResult.toString();
 	}
-
-	
-	private String findEncoding(URLConnection targetURLConnection) throws Exception {
-		String encoding = targetURLConnection.getContentEncoding();
-		if (encoding==null) {
-			String contentType = targetURLConnection.getContentType();
-			if (contentType.contains("charset")) {
-				String[] contentTypeAttributes = contentType.split(";");
-				String charsetAttribute = null;
-				for (String attribute : contentTypeAttributes) {
-					if (attribute.trim().startsWith("charset")) {
-						charsetAttribute = attribute;
-					}
-				}
-				if (charsetAttribute != null) {
-					encoding = charsetAttribute.trim().substring(
-							charsetAttribute.indexOf("=")).toUpperCase();
-				}
-			}
-			if (encoding == null) {
-				throw new Exception("no encoding available");
-			}
-		}
-		return encoding;
-	}
-
-
 }
