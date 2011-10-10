@@ -41,6 +41,42 @@ answer:
 	"uri":"http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57"
 }
 </pre>
+
+<h2>/match</h2>
+verify and match a given constraint in relation to its primary source target<br>
+example: POST JSON like: 
+<br>
+<pre>
+{
+	"constraint": 
+	{
+		"position":"line=51,57",
+		"context":"{\"after\":\"hat she ought to hav\",\"before\":\"\\npicking the daisies\"}",
+		"checksum":"3e899c5d9f39cbf8be8d42ad2ef74605"
+	},
+	"uri":"http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57"
+}
+</pre>
+<br>
+answer:
+<br>
+if the primary source target had changed but a match has been foumd the service returns the modified 
+constraint on a character range bases, for example when checking the gutenberg text constraint against a slightly
+modified version of it:
+<pre>
+{
+	"constraint": 
+	{
+		"position":"char=1268,1563",
+		"context":"{\"after\":\"hat she ought to hav\",\"before\":\"\\npicking the daisies\"}",
+		"checksum":"6bf49233aada715a9e797af33b35c8d6"
+	},
+	"uri":"http://87.106.12.254/alice_modified.txt#char=1268,1563"
+}
+</pre>
+<br>
+<p>In case verification succeeds the original constraint is returned.</p> 
+<p>In case the verification fails and the a match can not be found a 409 conflict error is signaled.</p>
 </div>
 </body>
 </html>

@@ -24,11 +24,12 @@ public class ConstraintServer {
 		
 		final Router router = new Router(component.getContext().createChildContext());
 
+		router.attach("/create", ConstraintFactory.class);
+		router.attach("/match", ConstraintMatcher.class);
+
 		router.attach("/", new Directory(component.getContext().createChildContext(),
 				ROOT_URI));
 
-		router.attach("/create", ConstraintFactory.class);
-		router.attach("/match", ConstraintMatcher.class);
 		
 		component.getDefaultHost().attach("/oac-constraint", router);
 		

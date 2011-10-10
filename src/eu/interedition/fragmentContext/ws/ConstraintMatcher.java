@@ -61,7 +61,7 @@ public class ConstraintMatcher extends ServerResource {
 				JSONResultFactory resultFactory = new JSONResultFactory();
 				JSONObject result = resultFactory.createResult(
 						jsonArgs, matchedContext, matchedFragmentIdentifier);
-				
+				System.out.println(result.toString());
 				return result.toString();
 				
 			}

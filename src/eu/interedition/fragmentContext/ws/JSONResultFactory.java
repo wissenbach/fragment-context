@@ -15,7 +15,9 @@ public class JSONResultFactory {
 					throws JSONException {
 		JSONObject jsonResult = new JSONObject();
 		jsonResult.put(ArgumentsParser.Field.uri.name(), 
-				jsonArgs.getString(ArgumentsParser.Field.uri.name()));
+				jsonArgs.getString(ArgumentsParser.Field.uri.name()).substring(
+						0, jsonArgs.getString(ArgumentsParser.Field.uri.name()).indexOf("#")+1)
+						+textFragmentIdentifier.getTextScheme());
 		
 		JSONObject jsonConstraint = new JSONObject();
 		jsonConstraint.put(
