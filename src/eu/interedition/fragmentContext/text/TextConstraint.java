@@ -28,4 +28,9 @@ public class TextConstraint implements Constraint {
 		return this.startPos == ((TextConstraint)arg0).startPos &&
 		this.endPos == ((TextConstraint)arg0).endPos;
 	}
+	
+	@Override
+	public String toString() {
+		return TextConstraint.class.getSimpleName() + "[" + startPos + ", " + endPos + "]";
+	}
 }

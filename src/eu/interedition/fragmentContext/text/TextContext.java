@@ -10,6 +10,7 @@ import de.tud.kom.stringutils.tokenization.CharacterTokenizer;
 import eu.interedition.fragmentContext.Constraint;
 import eu.interedition.fragmentContext.Context;
 import eu.interedition.fragmentContext.Primary;
+import eu.interedition.fragmentContext.Context.NoMatchFoundException;
 
 public class TextContext implements Context {
 
@@ -86,19 +87,24 @@ public class TextContext implements Context {
 
 	}
 
-	@Override
-	public Constraint match(Primary primary) throws Context.NoMatchFoundException {
-		if (!(primary instanceof TextPrimary))
-			throw new IllegalArgumentException();
-		TextPrimary textPrimary = (TextPrimary) primary;
+	private ShingleCloud createSC(int needleLength, String hayStack) {
 		
-		ShingleCloud sc = new ShingleCloud(textPrimary.getContent());
-		
+		ShingleCloud sc = new ShingleCloud(hayStack);
 		sc.setTokenizer(new CharacterTokenizer());
-		sc.setNGramSize(5);
-		sc.setMinimumNumberOfOnesInMatch(5);
-		sc.setSortMatchesByRating(true);
 		
+		int nGramSize = Math.min((int)(needleLength), 20);
+		sc.setNGramSize(nGramSize);
+		
+		sc.setMinimumNumberOfOnesInMatch((int) (1));
+		sc.setSortMatchesByRating(true);
+
+		return sc;
+	}
+	
+	private TextConstraint shingleCloudMatch(String primaryContent) throws NoMatchFoundException {
+		
+		ShingleCloud sc = createSC(this.beforeContext.length(), primaryContent);
+
 		//find the text before the annotation
 		sc.match(this.beforeContext);
 		if (sc.getMatches().isEmpty())
@@ -108,17 +114,48 @@ public class TextContext implements Context {
 			sc.getMatches().get(0).getLength();	
 		
 		//find text after annotation
+		sc = createSC(this.afterContext.length(), primaryContent);
+		
 		sc.match(this.afterContext);
 		if (sc.getMatches().isEmpty())
 			throw new Context.NoMatchFoundException();
 		
 		int endPos = sc.getMatches().get(0).getStart();
 		
+		return new TextConstraint(startPos, endPos);
+	}
+
+	private TextConstraint exactMatch(String primaryContent) throws NoMatchFoundException {
+		
+		//find the text before the annotation
+		int startPos = primaryContent.indexOf(this.beforeContext);
+		if (startPos < 0)
+			throw new Context.NoMatchFoundException();
+		startPos += this.beforeContext.length();
+		
+		//find text after annotation
+		int endPos = primaryContent.indexOf(this.afterContext);
+		if (endPos < 0)
+			throw new Context.NoMatchFoundException();
+		
+		return new TextConstraint(startPos, endPos);
+	}
+
+	
+	@Override
+	public Constraint match(Primary primary) throws Context.NoMatchFoundException {
+		if (!(primary instanceof TextPrimary))
+			throw new IllegalArgumentException();
+		TextPrimary textPrimary = (TextPrimary) primary;
+		
+		//TextConstraint result = shingleCloudMatch(textPrimary.getContent());
+		TextConstraint result = exactMatch(textPrimary.getContent());
+		
 		//sanity check
-		if (endPos < startPos)
+		if (result.getEndPos() < result.getStartPos())
 			throw new Context.NoMatchFoundException();
 			
-		return new TextConstraint(startPos, endPos);
+		return result;
 	}
 
 	public byte[] getCheckSum() {
