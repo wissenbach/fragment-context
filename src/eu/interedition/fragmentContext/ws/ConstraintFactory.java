@@ -23,12 +23,11 @@ public class ConstraintFactory extends ServerResource{
 			JSONObject jsonArgs = new JSONObject(args);
 			ArgumentsParser argsParser = new ArgumentsParser(jsonArgs);
 			URI targetURI = argsParser.getTargetURI();
+			TextPrimary primary = argsParser.getPrimary();
 			
 			TextFragmentIdentifierFactory factory = new TextFragmentIdentifierFactory();
 			TextFragmentIdentifier textFragmentIdentifier = 
 					factory.createTextFragmentIdentifier(targetURI.getFragment());
-			
-			TextPrimary primary = argsParser.getPrimary();
 			
 			TextConstraint constraint = 
 					new TextConstraint(

@@ -66,9 +66,10 @@ public class ArgumentsParser {
 		InputStream targetInputStream = targetURLConnection.getInputStream();
 
 		String encoding = findEncoding(targetURLConnection);
+		String mimeType = findMimeType(targetURLConnection);
 		
 		TextPrimary primary = new TextPrimary(
-				IOUtils.toString(targetInputStream, encoding));
+				IOUtils.toString(targetInputStream, encoding), mimeType);
 		
 		targetInputStream.close();
 		
@@ -76,6 +77,22 @@ public class ArgumentsParser {
 
 	}
 	
+	private String findMimeType(URLConnection targetURLConnection) {
+		String contentType = targetURLConnection.getContentType();
+		String mimeType = null;
+		if (contentType != null) {
+			String[] contentTypeAttributes = contentType.split(";");
+			if (contentTypeAttributes.length > 0) {
+				mimeType  = contentTypeAttributes[0];
+			}
+		}
+		if (mimeType == null) {
+			mimeType = "text/plain";
+			// throw new Exception("no mimetype available");
+		}
+		return mimeType;
+	}
+
 	private String findEncoding(URLConnection targetURLConnection) throws Exception {
 		String encoding = targetURLConnection.getContentEncoding();
 		if (encoding==null) {

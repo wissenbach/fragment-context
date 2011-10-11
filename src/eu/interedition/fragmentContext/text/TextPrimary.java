@@ -1,12 +1,13 @@
 package eu.interedition.fragmentContext.text;
 
-import eu.interedition.fragmentContext.Primary;
+import eu.interedition.fragmentContext.DefaultPrimary;
 
-public class TextPrimary implements Primary {
+public class TextPrimary extends DefaultPrimary {
 
 	private String content;
 	
-	public TextPrimary(String content) {
+	public TextPrimary(String content, String mimeType) {
+		super(mimeType);
 		this.content = content;
 	}
 
