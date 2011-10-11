@@ -1,12 +1,14 @@
 package eu.interedition.fragmentContext.ws;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,13 +71,30 @@ public class ArgumentsParser {
 		String mimeType = findMimeType(targetURLConnection);
 		
 		TextPrimary primary = new TextPrimary(
-				IOUtils.toString(targetInputStream, encoding), mimeType);
-		
+//				IOUtils.toString(targetInputStream, encoding), mimeType);
+				streamToString(targetInputStream, encoding), mimeType);
 		targetInputStream.close();
 		
 		return primary;
 
 	}
+	
+	private String streamToString(InputStream is, String charset) throws IOException {
+		StringBuilder contentBuffer = new StringBuilder();
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader( is, charset ) );
+		
+		char[] buf = new char[65536];
+		int cCount = -1;
+        while((cCount=reader.read(buf)) != -1) {
+        	contentBuffer.append( buf, 0, cCount);
+        }
+
+        return contentBuffer.toString();
+	}
+	
+	
+	
 	
 	private String findMimeType(URLConnection targetURLConnection) {
 		String contentType = targetURLConnection.getContentType();

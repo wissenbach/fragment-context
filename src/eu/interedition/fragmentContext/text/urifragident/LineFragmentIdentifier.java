@@ -35,7 +35,7 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 				return characterPos;
 			}
 			characterPos+=curLine.length()
-					+(scanner.match().group(1)==null ? 0 : scanner.match().group(1).length());
+					+ (scanner.match().group(1)==null ? 0 : scanner.match().group(1).length());
 			
 			linePosition++;
 		}
