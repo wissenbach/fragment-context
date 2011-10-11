@@ -35,17 +35,22 @@ public class ArgumentsParser {
 	public URI getTargetURI() throws URISyntaxException, JSONException {
 		if (this.targetURI == null) {
 			this.targetURI = new URI(args.getString(Field.uri.name()));
-			if ((this.targetURI.getFragment() == null) && (args.has(Field.constraint.name()))) { 
+			if ((this.targetURI.getFragment() == null) 
+					&& (args.has(Field.constraint.name()))) { 
+				
 				JSONObject jsonConstraints = args.getJSONObject(Field.constraint.name());
 				if (jsonConstraints.has(Field.position.name())) {
 					String constraintPosition = 
 							jsonConstraints.getString(Field.position.name());
 					if (constraintPosition != null){
-						String extURI = args.getString(Field.uri.name())+ "#" + constraintPosition;
+						String extURI = 
+								args.getString(Field.uri.name()) 
+								+ "#" + constraintPosition;
 						this.targetURI = new URI(extURI);
 						args.put(Field.uri.name(), extURI);
 					}
 				}
+				
 			}
 		}		
 		return this.targetURI;
@@ -97,14 +102,18 @@ public class ArgumentsParser {
 	}
 
 	public String getBeforeContext() throws JSONException {
-		String context = args.getJSONObject(Field.constraint.name()).getString(Field.context.name());
+		String context = 
+				args.getJSONObject(
+						Field.constraint.name()).getString(Field.context.name());
 		JSONObject jsonContext = new JSONObject(context);
 		
 		return jsonContext.getString(Field.before.name());
 	}
 
 	public String getAfterContext() throws JSONException {
-		String context = args.getJSONObject(Field.constraint.name()).getString(Field.context.name());
+		String context = 
+				args.getJSONObject(
+						Field.constraint.name()).getString(Field.context.name());
 		JSONObject jsonContext = new JSONObject(context);
 		
 		return jsonContext.getString(Field.after.name());

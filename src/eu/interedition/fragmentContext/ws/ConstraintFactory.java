@@ -1,6 +1,5 @@
 package eu.interedition.fragmentContext.ws;
 
-import java.math.BigInteger;
 import java.net.URI;
 
 import org.json.JSONObject;
@@ -36,35 +35,13 @@ public class ConstraintFactory extends ServerResource{
 					textFragmentIdentifier.getCharacterEndPos(primary.getContent()));
 
 		TextContext context = 
-				new TextContext(primary, constraint, HashType.MD5, 20);
+				new TextContext(
+						primary, constraint, HashType.MD5, 
+						TextContext.DEFAULT_CONTEXTLENGTH);
 				
-		JSONObject jsonResult = new JSONObject();
-		jsonResult.put(ArgumentsParser.Field.uri.name(), 
-				jsonArgs.getString(ArgumentsParser.Field.uri.name()));
-		
-		JSONObject jsonConstraint = new JSONObject();
-		jsonConstraint.put(
-				ArgumentsParser.Field.checksum.name(), 
-				new BigInteger(context.getCheckSum()).toString(16));
-		jsonConstraint.put(
-				ArgumentsParser.Field.position.name(), 
-				textFragmentIdentifier.getTextScheme());
-		
-		JSONObject jsonContext = new JSONObject();
-		jsonContext.put(
-				ArgumentsParser.Field.before.name(), 
-				context.getBeforeContext());
-		jsonContext.put(
-				ArgumentsParser.Field.after.name(), 
-				context.getAfterContext());
-		
-		jsonConstraint.put(
-				ArgumentsParser.Field.context.name(), 
-				jsonContext.toString());
-		
-		jsonResult.put(
-				ArgumentsParser.Field.constraint.name(), 
-				jsonConstraint);
+		JSONResultFactory resultFactory = new JSONResultFactory();
+		JSONObject jsonResult = resultFactory.createResult(
+				jsonArgs, context, textFragmentIdentifier);
 		
 		System.out.println(jsonResult.toString());
 		

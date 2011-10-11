@@ -13,6 +13,7 @@ import eu.interedition.fragmentContext.text.TextConstraint;
 import eu.interedition.fragmentContext.text.TextContext;
 import eu.interedition.fragmentContext.text.TextContext.HashType;
 import eu.interedition.fragmentContext.text.TextPrimary;
+import eu.interedition.fragmentContext.text.urifragident.CharFragmentIdentifier;
 import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifier;
 import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifierFactory;
 
@@ -53,21 +54,31 @@ public class ConstraintMatcher extends ServerResource {
 		if (!context.verify(primary)) {
 			try {
 				TextConstraint matchedConstraint = (TextConstraint)context.match(primary);
-				TextContext matchedContext = new TextContext(primary, matchedConstraint, HashType.MD5, 20 );
+				
+				TextContext matchedContext = 
+						new TextContext(
+								primary, matchedConstraint, HashType.MD5, 
+								TextContext.DEFAULT_CONTEXTLENGTH );
+				
 				TextFragmentIdentifier matchedFragmentIdentifier = 
 						factory.createTextFragmentIdentifier(
-								"char=" + matchedConstraint.getStartPos() 
+								CharFragmentIdentifier.SCHEME_NAME + "=" 
+								+ matchedConstraint.getStartPos() 
 								+ "," + matchedConstraint.getEndPos());
+				
 				JSONResultFactory resultFactory = new JSONResultFactory();
 				JSONObject result = resultFactory.createResult(
 						jsonArgs, matchedContext, matchedFragmentIdentifier);
+				
 				System.out.println(result.toString());
+				
 				return result.toString();
 				
 			}
 			catch(NoMatchFoundException nme) {
 				Response.getCurrent().setStatus(
-						Status.CLIENT_ERROR_CONFLICT, "primary resource of the target has been modified");
+						Status.CLIENT_ERROR_CONFLICT, 
+						"primary resource of the target has been modified");
 				return jsonArgs.toString();
 			}
 		}

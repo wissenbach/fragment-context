@@ -1,7 +1,6 @@
 package eu.interedition.fragmentContext.ws;
 
-import java.math.BigInteger;
-
+import org.apache.commons.codec.binary.Hex;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,12 +16,13 @@ public class JSONResultFactory {
 		jsonResult.put(ArgumentsParser.Field.uri.name(), 
 				jsonArgs.getString(ArgumentsParser.Field.uri.name()).substring(
 						0, jsonArgs.getString(ArgumentsParser.Field.uri.name()).indexOf("#")+1)
-						+textFragmentIdentifier.getTextScheme());
+						+textFragmentIdentifier.toString());
 		
 		JSONObject jsonConstraint = new JSONObject();
 		jsonConstraint.put(
 				ArgumentsParser.Field.checksum.name(), 
-				new BigInteger(context.getCheckSum()).toString(16));
+				Hex.encodeHexString(context.getCheckSum()));
+
 		jsonConstraint.put(
 				ArgumentsParser.Field.position.name(), 
 				textFragmentIdentifier.getTextScheme());

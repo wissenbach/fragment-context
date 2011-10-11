@@ -12,6 +12,8 @@ import eu.interedition.fragmentContext.Context;
 import eu.interedition.fragmentContext.Primary;
 
 public class TextContext implements Context {
+	
+	public static final int DEFAULT_CONTEXTLENGTH = 20;
 
 	public static enum HashType {
 		MD5, SHA, Length
