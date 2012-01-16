@@ -67,6 +67,7 @@ public class ArgumentsParser {
 	
 	public TextPrimary getPrimary() throws Exception {
 		URL targetURL = targetURI.toURL();
+		boolean hasBOM = BOMFilterInputStream.hasBOM(targetURI);
 		URLConnection targetURLConnection = targetURL.openConnection();
 		InputStream targetInputStream = targetURLConnection.getInputStream();
 
@@ -75,18 +76,25 @@ public class ArgumentsParser {
 		
 		TextPrimary primary = new TextPrimary(
 //				IOUtils.toString(targetInputStream, encoding), mimeType);
-				streamToString(targetInputStream, encoding), mimeType);
+				streamToString(targetInputStream, encoding, hasBOM), mimeType);
 		targetInputStream.close();
 		
 		return primary;
 
 	}
 	
-	private String streamToString(InputStream is, String charset) throws IOException {
+	private String streamToString(InputStream is, String charset, boolean hasBOM) throws IOException {
 		StringBuilder contentBuffer = new StringBuilder();
-		BufferedReader reader = new BufferedReader(
+		BufferedReader reader = null;
+		if (hasBOM) {
+			reader = new BufferedReader(
 				new InputStreamReader(
 						new BOMFilterInputStream(is, Charset.forName(charset)), charset ) );
+		}
+		else {
+			reader = new BufferedReader(
+					new InputStreamReader(is, charset));
+		}
 		
 		char[] buf = new char[65536];
 		int cCount = -1;

@@ -22,6 +22,10 @@ package eu.interedition.fragmentContext.ws;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 
 /**
@@ -41,9 +45,6 @@ public class BOMFilterInputStream extends FilterInputStream {
     private final static Charset UTF16BE = Charset.forName( "UTF-16BE" );
     private final static Charset UTF16LE = Charset.forName( "UTF-16LE" );
     
-    private int[] utf8bomTestBuffer = null;
-    private int utf8bomTestBufferIdx = 3;
-    
     public BOMFilterInputStream(InputStream in, Charset charset) throws IOException {
         super(in);
 		handleBOM( charset );
@@ -56,16 +57,7 @@ public class BOMFilterInputStream extends FilterInputStream {
      */
     private void handleBOM( Charset charset ) throws IOException {
         if( charset.equals( UTF8 ) ) {
-        	int i1=read();
-        	int i2=read();
-        	int i3=read();
-        	if ((((byte)i1)!=UTF_8_BOM[0]) || (((byte)i2)!=UTF_8_BOM[1]) || (((byte)i3)!=UTF_8_BOM[2])) {
-        		utf8bomTestBuffer = new int[] { i1, i2, i3 };
-        		utf8bomTestBufferIdx = -1;
-        	}
-        	else {
-        		skip(3);
-        	}
+    		skip(3);
         }
         else if(
             charset.equals( UTF16 )
@@ -74,16 +66,24 @@ public class BOMFilterInputStream extends FilterInputStream {
             skip( 2 );
         }
     }
-    
-    
-    @Override
-    public int read() throws IOException {
-    	if (utf8bomTestBufferIdx <=1) {
-    		utf8bomTestBufferIdx++;
-    		return utf8bomTestBuffer[utf8bomTestBufferIdx];
-    	}
-    	
-    	return super.read();
-    }
 
+    public static boolean hasBOM(URI uri) throws IOException {
+    	
+		URL url = uri.toURL();
+		URLConnection targetURLConnection = url.openConnection();
+		InputStream targetInputStream = targetURLConnection.getInputStream();
+		try {
+			byte[] buf = new byte[3];
+			int readCount = targetInputStream.read(buf, 0, 3);
+			if (readCount == 3) {
+				if ((buf[0]==UTF_8_BOM[0]) && (buf[1]==UTF_8_BOM[1]) && (buf[2]==UTF_8_BOM[2])) {
+					return true;
+				}
+			}
+		}
+		finally {
+			targetInputStream.close();
+		}
+		return false;
+    }
 }
