@@ -24,9 +24,10 @@ public class ConstraintMatcher extends ServerResource {
 	public String machtConstraint(String args) {
 		try {
 			JSONObject jsonArgs = new JSONObject(args);
+			
 			ArgumentsParser argsParser = new ArgumentsParser(jsonArgs);
 			URI targetURI = argsParser.getTargetURI();
-	
+			
 			TextFragmentIdentifierFactory factory = new TextFragmentIdentifierFactory();
 			
 			TextFragmentIdentifier textFragmentIdentifier = 
@@ -77,9 +78,11 @@ public class ConstraintMatcher extends ServerResource {
 					
 				}
 				catch(NoMatchFoundException nme) {
+					String msg = "primary resource of the target has been modified";
+					Logger.getLogger(this.getClass().getName()).info(msg);
 					Response.getCurrent().setStatus(
 							Status.CLIENT_ERROR_CONFLICT, 
-							"primary resource of the target has been modified");
+							msg);
 					return jsonArgs.toString();
 				}
 			}

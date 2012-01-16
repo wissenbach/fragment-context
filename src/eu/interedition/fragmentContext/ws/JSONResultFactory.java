@@ -9,7 +9,7 @@ import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifier;
 
 public class JSONResultFactory {
 
-	public JSONObject createResult(
+	public JSONObject createResult( //TODO: this factory should be in a ws.textfrag subpackage
 			JSONObject jsonArgs, TextContext context, TextFragmentIdentifier textFragmentIdentifier) 
 					throws JSONException {
 		JSONObject jsonResult = new JSONObject();
@@ -42,6 +42,9 @@ public class JSONResultFactory {
 		jsonResult.put(
 				ArgumentsParser.Field.constraint.name(), 
 				jsonConstraint);
+		
+		jsonResult.put(
+				ArgumentsParser.Field.constraint_type.name(), "RFC_5147");
 		
 		return jsonResult;
 	}

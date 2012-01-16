@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/antlr-3.4-complete.jar" sourcepath="C:/data/jtools/antlr/antlr-3.4/runtime/Java/src/main/java"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.json.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.jar" sourcepath="C:/data/jtools/restlet-jse-2.0.10/src"/>
+	<classpathentry kind="lib" path="lib/jjson.jar" sourcepath="C:/data/eclipse_workspace/jjson/src"/>
+	<classpathentry kind="lib" path="lib/shinglecloud-0.51.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

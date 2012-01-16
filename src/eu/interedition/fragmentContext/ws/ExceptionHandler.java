@@ -9,6 +9,7 @@ import org.restlet.data.Status;
 public class ExceptionHandler {
 
 	public static String handle(Throwable t) {
+		t.printStackTrace();
 		try {
 			throw t;
 		}
