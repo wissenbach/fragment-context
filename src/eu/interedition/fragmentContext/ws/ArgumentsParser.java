@@ -17,7 +17,15 @@ import eu.interedition.fragmentContext.text.TextPrimary;
 
 public class ArgumentsParser {
 	
-	public enum Field {
+	static enum State {
+		modified,
+		success,
+		failure,
+		;
+	}
+	
+	enum Field {
+		state,
 		uri,
 		constraint,
 		position, 
@@ -74,9 +82,10 @@ public class ArgumentsParser {
 		String encoding = findEncoding(targetURLConnection);
 		String mimeType = findMimeType(targetURLConnection);
 		
+		//todo: mime type dependent primaries:
+		
 		TextPrimary primary = new TextPrimary(
-//				IOUtils.toString(targetInputStream, encoding), mimeType);
-				streamToString(targetInputStream, encoding, hasBOM), mimeType);
+				streamToString(targetInputStream, encoding, hasBOM));
 		targetInputStream.close();
 		
 		return primary;

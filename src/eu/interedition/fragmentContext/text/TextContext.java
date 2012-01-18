@@ -4,13 +4,14 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.tud.kom.stringmatching.shinglecloud.ShingleCloud;
 import de.tud.kom.stringutils.tokenization.CharacterTokenizer;
 import eu.interedition.fragmentContext.Constraint;
 import eu.interedition.fragmentContext.Context;
 import eu.interedition.fragmentContext.Primary;
-import eu.interedition.fragmentContext.Context.NoMatchFoundException;
 
 public class TextContext implements Context {
 	
@@ -127,31 +128,55 @@ public class TextContext implements Context {
 		return new TextConstraint(startPos, endPos);
 	}
 
-	private TextConstraint exactMatch(String primaryContent) throws NoMatchFoundException {
+	private TextConstraint exactMatch(String primaryContent, TextConstraint originalConstraint) throws NoMatchFoundException {
 		
 		//find the text before the annotation
-		int startPos = primaryContent.indexOf(this.beforeContext);
+		//int startPos = primaryContent.indexOf(this.beforeContext);
+		int startPos = findClosestIndexOf(
+				this.beforeContext, 
+				originalConstraint.getStartPos()-beforeContext.length(), 
+				primaryContent);
+		
 		if (startPos < 0)
 			throw new Context.NoMatchFoundException();
 		startPos += this.beforeContext.length();
 		
 		//find text after annotation
-		int endPos = primaryContent.indexOf(this.afterContext);
+//		int endPos = primaryContent.indexOf(this.afterContext);
+		int endPos = findClosestIndexOf(
+				this.afterContext, 
+				originalConstraint.getEndPos(), 
+				primaryContent);
+		
 		if (endPos < 0)
 			throw new Context.NoMatchFoundException();
 		
 		return new TextConstraint(startPos, endPos);
 	}
 
+	private int findClosestIndexOf(String context, int oldIndex, String content) {
+	
+		Matcher matcher = Pattern.compile(Pattern.quote(context)).matcher(content);
+		int index = 0;
+		
+		while (matcher.find()) {
+			if (Math.abs(oldIndex-matcher.start()) < (Math.abs(oldIndex-index))) {
+				index = matcher.start();
+			}
+		}
+		
+		return index;
+	}
+
 	
 	@Override
-	public Constraint match(Primary primary) throws Context.NoMatchFoundException {
+	public Constraint match(Primary primary, TextConstraint originalConstraint) throws Context.NoMatchFoundException {
 		if (!(primary instanceof TextPrimary))
 			throw new IllegalArgumentException();
 		TextPrimary textPrimary = (TextPrimary) primary;
 		
 		//TextConstraint result = shingleCloudMatch(textPrimary.getContent());
-		TextConstraint result = exactMatch(textPrimary.getContent());
+		TextConstraint result = exactMatch(textPrimary.getContent(), originalConstraint);
 		
 		//sanity check
 		if (result.getEndPos() < result.getStartPos())

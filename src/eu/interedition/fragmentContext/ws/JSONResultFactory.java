@@ -6,11 +6,12 @@ import org.json.JSONObject;
 
 import eu.interedition.fragmentContext.text.TextContext;
 import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifier;
+import eu.interedition.fragmentContext.ws.ArgumentsParser.State;
 
 public class JSONResultFactory {
 
 	public JSONObject createResult( //TODO: this factory should be in a ws.textfrag subpackage
-			JSONObject jsonArgs, TextContext context, TextFragmentIdentifier textFragmentIdentifier) 
+			JSONObject jsonArgs, TextContext context, TextFragmentIdentifier textFragmentIdentifier, State state) 
 					throws JSONException {
 		JSONObject jsonResult = new JSONObject();
 		jsonResult.put(ArgumentsParser.Field.uri.name(), 
@@ -45,6 +46,9 @@ public class JSONResultFactory {
 		
 		jsonResult.put(
 				ArgumentsParser.Field.constraint_type.name(), "RFC_5147");
+		
+		jsonResult.put(
+				ArgumentsParser.Field.state.name(), state.name());
 		
 		return jsonResult;
 	}
