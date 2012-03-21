@@ -124,7 +124,7 @@ textScheme returns [TextFragmentIdentifier textfragmentIdentifier]
 	catch[RecognitionException e] {throw e;}
 	
 charScheme returns [TextFragmentIdentifier textfragmentIdentifier]
-	:	CHAR_S EQUAL range
+	:	CHAR_S '=' range
 			{
 			$textfragmentIdentifier = new CharFragmentIdentifier($range.range);
 			}
@@ -132,7 +132,7 @@ charScheme returns [TextFragmentIdentifier textfragmentIdentifier]
 	catch[RecognitionException e] {throw e;}
 			
 lineScheme returns [TextFragmentIdentifier textfragmentIdentifier]
-	:	LINE_S EQUAL range
+	:	LINE_S '=' range
 			{
 			$textfragmentIdentifier = new LineFragmentIdentifier($range.range);
 			}
@@ -205,7 +205,6 @@ MIMECHARS
 	:	(ALPHA | INT | '!' | '#' | '$' | '%' | '&' | '\'' | '+' | '-' | '^' | '_' | '`' | '{' | '}' | '~')+
 	;
 	
-
 MD5VALUE 
 	:	HEXDIGIT+
 	;
@@ -224,7 +223,4 @@ CHAR_S 	:	'char'
 	;
 	
 LINE_S 	:	'line'
-	;
-	
-EQUAL 	:	'='
 	;

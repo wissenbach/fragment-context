@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g 2011-10-09 16:13:01
+// $ANTLR 3.4 C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g 2011-10-11 10:57:06
 
 package eu.interedition.fragmentContext.text.urifragident.parser;
 
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     public static final int EOF=-1;
+    public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
     public static final int T__15=15;
@@ -18,12 +19,11 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     public static final int ALPHA=4;
     public static final int CHAR_S=5;
     public static final int DIGIT=6;
-    public static final int EQUAL=7;
-    public static final int HEXDIGIT=8;
-    public static final int INT=9;
-    public static final int LINE_S=10;
-    public static final int MD5VALUE=11;
-    public static final int MIMECHARS=12;
+    public static final int HEXDIGIT=7;
+    public static final int INT=8;
+    public static final int LINE_S=9;
+    public static final int MD5VALUE=10;
+    public static final int MIMECHARS=11;
 
 
     /**
@@ -50,15 +50,36 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     }
     public String getGrammarFileName() { return "C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g"; }
 
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
+    // $ANTLR start "T__12"
+    public final void mT__12() throws RecognitionException {
         try {
-            int _type = T__13;
+            int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:16:7: ( ',' )
             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:16:9: ','
             {
             match(','); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__12"
+
+    // $ANTLR start "T__13"
+    public final void mT__13() throws RecognitionException {
+        try {
+            int _type = T__13;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:17:7: ( ';' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:17:9: ';'
+            {
+            match(';'); 
 
             }
 
@@ -76,10 +97,10 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:17:7: ( ';' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:17:9: ';'
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:18:7: ( '=' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:18:9: '='
             {
-            match(';'); 
+            match('='); 
 
             }
 
@@ -97,8 +118,8 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:18:7: ( 'length=' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:18:9: 'length='
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:19:7: ( 'length=' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:19:9: 'length='
             {
             match("length="); 
 
@@ -120,8 +141,8 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:19:7: ( 'md5=' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:19:9: 'md5='
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:20:7: ( 'md5=' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:20:9: 'md5='
             {
             match("md5="); 
 
@@ -469,10 +490,10 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = MD5VALUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:210:2: ( ( HEXDIGIT )+ )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:210:4: ( HEXDIGIT )+
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:209:2: ( ( HEXDIGIT )+ )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:209:4: ( HEXDIGIT )+
             {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:210:4: ( HEXDIGIT )+
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:209:4: ( HEXDIGIT )+
             int cnt3=0;
             loop3:
             do {
@@ -525,7 +546,7 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     // $ANTLR start "HEXDIGIT"
     public final void mHEXDIGIT() throws RecognitionException {
         try {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:214:2: ( DIGIT | 'a' .. 'f' | 'A' .. 'F' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:213:2: ( DIGIT | 'a' .. 'f' | 'A' .. 'F' )
             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -551,7 +572,7 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     // $ANTLR start "ALPHA"
     public final void mALPHA() throws RecognitionException {
         try {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:217:17: ( 'A' .. 'Z' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:216:17: ( 'A' .. 'Z' )
             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') ) {
@@ -577,7 +598,7 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:220:16: ( '0' .. '9' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:219:16: ( '0' .. '9' )
             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -605,8 +626,8 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = CHAR_S;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:223:9: ( 'char' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:223:11: 'char'
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:222:9: ( 'char' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:222:11: 'char'
             {
             match("char"); 
 
@@ -628,8 +649,8 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
         try {
             int _type = LINE_S;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:226:9: ( 'line' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:226:11: 'line'
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:225:9: ( 'line' )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:225:11: 'line'
             {
             match("line"); 
 
@@ -646,108 +667,87 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
     }
     // $ANTLR end "LINE_S"
 
-    // $ANTLR start "EQUAL"
-    public final void mEQUAL() throws RecognitionException {
-        try {
-            int _type = EQUAL;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:229:8: ( '=' )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:229:10: '='
-            {
-            match('='); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "EQUAL"
-
     public void mTokens() throws RecognitionException {
-        // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:8: ( T__13 | T__14 | T__15 | T__16 | INT | MIMECHARS | MD5VALUE | CHAR_S | LINE_S | EQUAL )
+        // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | INT | MIMECHARS | MD5VALUE | CHAR_S | LINE_S )
         int alt4=10;
         alt4 = dfa4.predict(input);
         switch (alt4) {
             case 1 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:10: T__13
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:10: T__12
+                {
+                mT__12(); 
+
+
+                }
+                break;
+            case 2 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:16: T__13
                 {
                 mT__13(); 
 
 
                 }
                 break;
-            case 2 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:16: T__14
+            case 3 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:22: T__14
                 {
                 mT__14(); 
 
 
                 }
                 break;
-            case 3 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:22: T__15
+            case 4 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:28: T__15
                 {
                 mT__15(); 
 
 
                 }
                 break;
-            case 4 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:28: T__16
+            case 5 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:34: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 5 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:34: INT
+            case 6 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:40: INT
                 {
                 mINT(); 
 
 
                 }
                 break;
-            case 6 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:38: MIMECHARS
+            case 7 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:44: MIMECHARS
                 {
                 mMIMECHARS(); 
 
 
                 }
                 break;
-            case 7 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:48: MD5VALUE
+            case 8 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:54: MD5VALUE
                 {
                 mMD5VALUE(); 
 
 
                 }
                 break;
-            case 8 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:57: CHAR_S
+            case 9 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:63: CHAR_S
                 {
                 mCHAR_S(); 
 
 
                 }
                 break;
-            case 9 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:64: LINE_S
+            case 10 :
+                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:70: LINE_S
                 {
                 mLINE_S(); 
-
-
-                }
-                break;
-            case 10 :
-                // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:1:71: EQUAL
-                {
-                mEQUAL(); 
 
 
                 }
@@ -760,39 +760,39 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
 
     protected DFA4 dfa4 = new DFA4(this);
     static final String DFA4_eotS =
-        "\5\uffff\1\15\1\7\1\uffff\1\11\5\uffff\1\7\1\uffff";
+        "\6\uffff\1\15\1\10\1\uffff\1\12\4\uffff\1\10\1\uffff";
     static final String DFA4_eofS =
         "\20\uffff";
     static final String DFA4_minS =
-        "\1\41\2\uffff\1\145\1\uffff\1\41\1\60\1\uffff\1\150\5\uffff\1\60"+
+        "\1\41\3\uffff\1\145\1\uffff\1\41\1\60\1\uffff\1\150\4\uffff\1\60"+
         "\1\uffff";
     static final String DFA4_maxS =
-        "\1\176\2\uffff\1\151\1\uffff\1\176\1\146\1\uffff\1\150\5\uffff\1"+
+        "\1\176\3\uffff\1\151\1\uffff\1\176\1\146\1\uffff\1\150\4\uffff\1"+
         "\146\1\uffff";
     static final String DFA4_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\2\uffff\1\6\1\uffff\1\7\1\12\1\3\1"+
-        "\11\1\5\1\uffff\1\10";
+        "\1\uffff\1\1\1\2\1\3\1\uffff\1\5\2\uffff\1\7\1\uffff\1\10\1\4\1"+
+        "\12\1\6\1\uffff\1\11";
     static final String DFA4_specialS =
         "\20\uffff}>";
     static final String[] DFA4_transitionS = {
-            "\1\7\1\uffff\5\7\3\uffff\1\7\1\1\1\7\2\uffff\12\5\1\uffff\1"+
-            "\2\1\uffff\1\12\3\uffff\6\6\24\7\3\uffff\3\7\2\11\1\10\3\11"+
-            "\5\uffff\1\3\1\4\15\uffff\1\7\1\uffff\2\7",
+            "\1\10\1\uffff\5\10\3\uffff\1\10\1\1\1\10\2\uffff\12\6\1\uffff"+
+            "\1\2\1\uffff\1\3\3\uffff\6\7\24\10\3\uffff\3\10\2\12\1\11\3"+
+            "\12\5\uffff\1\4\1\5\15\uffff\1\10\1\uffff\2\10",
+            "",
             "",
             "",
             "\1\13\3\uffff\1\14",
             "",
-            "\1\7\1\uffff\5\7\3\uffff\1\7\1\uffff\1\7\2\uffff\12\5\7\uffff"+
-            "\6\6\24\7\3\uffff\3\7\6\11\24\uffff\1\7\1\uffff\2\7",
-            "\12\16\7\uffff\6\6\32\uffff\6\11",
+            "\1\10\1\uffff\5\10\3\uffff\1\10\1\uffff\1\10\2\uffff\12\6\7"+
+            "\uffff\6\7\24\10\3\uffff\3\10\6\12\24\uffff\1\10\1\uffff\2\10",
+            "\12\16\7\uffff\6\7\32\uffff\6\12",
             "",
             "\1\17",
             "",
             "",
             "",
             "",
-            "",
-            "\12\16\7\uffff\6\6\32\uffff\6\11",
+            "\12\16\7\uffff\6\7\32\uffff\6\12",
             ""
     };
 
@@ -826,7 +826,7 @@ public class URIFragmentIdentifierPlainTextLexer extends Lexer {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | INT | MIMECHARS | MD5VALUE | CHAR_S | LINE_S | EQUAL );";
+            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | INT | MIMECHARS | MD5VALUE | CHAR_S | LINE_S );";
         }
     }
  

@@ -7,11 +7,6 @@ class FulltextFragmentIdentifier extends TextFragmentIdentifier {
 	}
 	
 	@Override
-	public String getTextFragmentFrom(String primarySource) {
-		return primarySource;
-	}
-
-	@Override
 	public String getTextSchemeName() {
 		return "";
 	}

@@ -1,8 +1,9 @@
 package eu.interedition.fragmentContext.ws;
 
-import java.math.BigInteger;
 import java.net.URI;
+import java.util.logging.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -13,61 +14,52 @@ import eu.interedition.fragmentContext.text.TextContext.HashType;
 import eu.interedition.fragmentContext.text.TextPrimary;
 import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifier;
 import eu.interedition.fragmentContext.text.urifragident.TextFragmentIdentifierFactory;
+import eu.interedition.fragmentContext.ws.ArgumentsParser.State;
 
 
 public class ConstraintFactory extends ServerResource{
 	
 	@Post
-	public String createConstraint(String args) throws Exception {
-		
-		JSONObject jsonArgs = new JSONObject(args);
-		ArgumentsParser argsParser = new ArgumentsParser(jsonArgs);
-		URI targetURI = argsParser.getTargetURI();
-		
-		TextFragmentIdentifierFactory factory = new TextFragmentIdentifierFactory();
-		TextFragmentIdentifier textFragmentIdentifier = 
-				factory.createTextFragmentIdentifier(targetURI.getFragment());
-		
-		TextPrimary primary = argsParser.getPrimary();
-		
-		TextConstraint constraint = 
-				new TextConstraint(
-					textFragmentIdentifier.getCharacterStartPos(primary.getContent()),
-					textFragmentIdentifier.getCharacterEndPos(primary.getContent()));
-
-		TextContext context = 
-				new TextContext(primary, constraint, HashType.MD5, 20);
+	public String createConstraint(String args) {
+		StringBuilder jsonResult = new StringBuilder("[");
+		String conc = "";
+		try {
+			JSONArray jsonArgs = new JSONArray(args);
+			for (int i=0; i<jsonArgs.length(); i++) {
+				JSONObject jsonArg = jsonArgs.getJSONObject(i);
 				
-		JSONObject jsonResult = new JSONObject();
-		jsonResult.put(ArgumentsParser.Field.uri.name(), 
-				jsonArgs.getString(ArgumentsParser.Field.uri.name()));
+				ArgumentsParser argsParser = new ArgumentsParser(jsonArg);
+				URI targetURI = argsParser.getTargetURI();
+				TextPrimary primary = argsParser.getPrimary();
+				
+				TextFragmentIdentifierFactory factory = new TextFragmentIdentifierFactory();
+				TextFragmentIdentifier textFragmentIdentifier = 
+						factory.createTextFragmentIdentifier(targetURI.getFragment());
+				
+				TextConstraint constraint = 
+						new TextConstraint(
+							textFragmentIdentifier.getCharacterStartPos(primary.getContent()),
+							textFragmentIdentifier.getCharacterEndPos(primary.getContent()));
 		
-		JSONObject jsonConstraint = new JSONObject();
-		jsonConstraint.put(
-				ArgumentsParser.Field.checksum.name(), 
-				new BigInteger(context.getCheckSum()).toString(16));
-		jsonConstraint.put(
-				ArgumentsParser.Field.position.name(), 
-				textFragmentIdentifier.getTextScheme());
-		
-		JSONObject jsonContext = new JSONObject();
-		jsonContext.put(
-				ArgumentsParser.Field.before.name(), 
-				context.getBeforeContext());
-		jsonContext.put(
-				ArgumentsParser.Field.after.name(), 
-				context.getAfterContext());
-		
-		jsonConstraint.put(
-				ArgumentsParser.Field.context.name(), 
-				jsonContext.toString());
-		
-		jsonResult.put(
-				ArgumentsParser.Field.constraint.name(), 
-				jsonConstraint);
-		
-		System.out.println(jsonResult.toString());
-		
-		return jsonResult.toString();
+				TextContext context = 
+						new TextContext(
+								primary, constraint, HashType.MD5, 
+								TextContext.DEFAULT_CONTEXTLENGTH);
+						
+				JSONResultFactory resultFactory = new JSONResultFactory();
+				JSONObject curJsonResult = resultFactory.createResult(
+						jsonArg, context, textFragmentIdentifier, State.success);
+				
+				Logger.getLogger(this.getClass().getName()).info(curJsonResult.toString());
+				jsonResult.append(conc);
+				jsonResult.append(curJsonResult);
+				conc = ",";
+			}
+			jsonResult.append("]");
+			return jsonResult.toString();
+		}
+		catch(Throwable t) {
+			return ExceptionHandler.handle(t);
+		}
 	}
 }
