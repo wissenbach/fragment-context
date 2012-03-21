@@ -37,7 +37,7 @@ public class Range {
 
 	@Override
 	public String toString() {
-		return "["+getStartPos()+","+getEndPos()+"]";
+		return getStartPos()+","+getEndPos();
 	}
 
 }

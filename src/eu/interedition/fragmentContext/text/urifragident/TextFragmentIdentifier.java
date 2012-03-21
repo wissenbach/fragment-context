@@ -1,12 +1,7 @@
 package eu.interedition.fragmentContext.text.urifragident;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.io.IOUtils;
 
 
 public abstract class TextFragmentIdentifier {
@@ -74,21 +69,25 @@ public abstract class TextFragmentIdentifier {
 		this.range = range;
 	}
 
-	public abstract String getTextFragmentFrom(String primarySource);
-	
-	public String getTextFragmentFrom(InputStream is) throws IOException {
-		
-		//TODO: checksum evaluating
-		if (getMimeCharset() != null) {
-			return getTextFragmentFrom(IOUtils.toString(is, getMimeCharset()));
-		}
-
-		return getTextFragmentFrom(IOUtils.toString(is));
-	}
-	
 	@Override
 	public String toString() {
-		return "RANGE" + range + " LENGTH[" + getLength() + "] MD5[" + getMd5HexValue() + "] MIMECHARSET[" + getMimeCharset() + "]";  
+		StringBuilder builder = new StringBuilder(getTextScheme());
+		
+		if (getLength() != null) {
+			builder.append(";length=");
+			builder.append(getLength());
+		}
+		else if (getMd5HexValue() != null) {
+			builder.append(";md5=");
+			builder.append(getMd5HexValue());
+		}
+		
+		if (getMimeCharset() != null) {
+			builder.append(",");
+			builder.append(getMimeCharset());
+		}
+
+		return builder.toString();
 	}
 
 	public abstract String getTextSchemeName();

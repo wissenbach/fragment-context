@@ -13,4 +13,9 @@ public class TextPrimary implements Primary {
 	public String getContent() {
 		return content;
 	}
+	
+	@Override
+	public String getMimeType() {
+		return "text/plain";
+	}
 }

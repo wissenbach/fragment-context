@@ -1,12 +1,15 @@
 package eu.interedition.fragmentContext.ws;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +17,15 @@ import eu.interedition.fragmentContext.text.TextPrimary;
 
 public class ArgumentsParser {
 	
-	public enum Field {
+	static enum State {
+		modified,
+		success,
+		failure,
+		;
+	}
+	
+	enum Field {
+		state,
 		uri,
 		constraint,
 		position, 
@@ -22,6 +33,8 @@ public class ArgumentsParser {
 		before, 
 		after, 
 		context,
+		constraint_type,
+		;
 	}
 	
 	private JSONObject args;
@@ -35,17 +48,22 @@ public class ArgumentsParser {
 	public URI getTargetURI() throws URISyntaxException, JSONException {
 		if (this.targetURI == null) {
 			this.targetURI = new URI(args.getString(Field.uri.name()));
-			if ((this.targetURI.getFragment() == null) && (args.has(Field.constraint.name()))) { 
+			if ((this.targetURI.getFragment() == null) 
+					&& (args.has(Field.constraint.name()))) { 
+				
 				JSONObject jsonConstraints = args.getJSONObject(Field.constraint.name());
 				if (jsonConstraints.has(Field.position.name())) {
 					String constraintPosition = 
 							jsonConstraints.getString(Field.position.name());
 					if (constraintPosition != null){
-						String extURI = args.getString(Field.uri.name())+ "#" + constraintPosition;
+						String extURI = 
+								args.getString(Field.uri.name()) 
+								+ "#" + constraintPosition;
 						this.targetURI = new URI(extURI);
 						args.put(Field.uri.name(), extURI);
 					}
 				}
+				
 			}
 		}		
 		return this.targetURI;
@@ -57,20 +75,64 @@ public class ArgumentsParser {
 	
 	public TextPrimary getPrimary() throws Exception {
 		URL targetURL = targetURI.toURL();
+		boolean hasBOM = BOMFilterInputStream.hasBOM(targetURI);
 		URLConnection targetURLConnection = targetURL.openConnection();
 		InputStream targetInputStream = targetURLConnection.getInputStream();
 
 		String encoding = findEncoding(targetURLConnection);
+		String mimeType = findMimeType(targetURLConnection);
+		
+		//todo: mime type dependent primaries:
 		
 		TextPrimary primary = new TextPrimary(
-				IOUtils.toString(targetInputStream, encoding));
-		
+				streamToString(targetInputStream, encoding, hasBOM));
 		targetInputStream.close();
 		
 		return primary;
 
 	}
 	
+	private String streamToString(InputStream is, String charset, boolean hasBOM) throws IOException {
+		StringBuilder contentBuffer = new StringBuilder();
+		BufferedReader reader = null;
+		if (hasBOM) {
+			reader = new BufferedReader(
+				new InputStreamReader(
+						new BOMFilterInputStream(is, Charset.forName(charset)), charset ) );
+		}
+		else {
+			reader = new BufferedReader(
+					new InputStreamReader(is, charset));
+		}
+		
+		char[] buf = new char[65536];
+		int cCount = -1;
+        while((cCount=reader.read(buf)) != -1) {
+        	contentBuffer.append( buf, 0, cCount);
+        }
+
+        return contentBuffer.toString();
+	}
+	
+	
+	
+	
+	private String findMimeType(URLConnection targetURLConnection) {
+		String contentType = targetURLConnection.getContentType();
+		String mimeType = null;
+		if (contentType != null) {
+			String[] contentTypeAttributes = contentType.split(";");
+			if (contentTypeAttributes.length > 0) {
+				mimeType  = contentTypeAttributes[0];
+			}
+		}
+		if (mimeType == null) {
+			mimeType = "text/plain";
+			// throw new Exception("no mimetype available");
+		}
+		return mimeType;
+	}
+
 	private String findEncoding(URLConnection targetURLConnection) throws Exception {
 		String encoding = targetURLConnection.getContentEncoding();
 		if (encoding==null) {
@@ -97,14 +159,18 @@ public class ArgumentsParser {
 	}
 
 	public String getBeforeContext() throws JSONException {
-		String context = args.getJSONObject(Field.constraint.name()).getString(Field.context.name());
+		String context = 
+				args.getJSONObject(
+						Field.constraint.name()).getString(Field.context.name());
 		JSONObject jsonContext = new JSONObject(context);
 		
 		return jsonContext.getString(Field.before.name());
 	}
 
 	public String getAfterContext() throws JSONException {
-		String context = args.getJSONObject(Field.constraint.name()).getString(Field.context.name());
+		String context = 
+				args.getJSONObject(
+						Field.constraint.name()).getString(Field.context.name());
 		JSONObject jsonContext = new JSONObject(context);
 		
 		return jsonContext.getString(Field.after.name());

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g 2011-10-09 16:13:01
+// $ANTLR 3.4 C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g 2011-10-11 10:57:06
 
 package eu.interedition.fragmentContext.text.urifragident.parser;
 import eu.interedition.fragmentContext.text.urifragident.*;
@@ -12,10 +12,11 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class URIFragmentIdentifierPlainTextParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ALPHA", "CHAR_S", "DIGIT", "EQUAL", "HEXDIGIT", "INT", "LINE_S", "MD5VALUE", "MIMECHARS", "','", "';'", "'length='", "'md5='"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ALPHA", "CHAR_S", "DIGIT", "HEXDIGIT", "INT", "LINE_S", "MD5VALUE", "MIMECHARS", "','", "';'", "'='", "'length='", "'md5='"
     };
 
     public static final int EOF=-1;
+    public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
     public static final int T__15=15;
@@ -23,12 +24,11 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
     public static final int ALPHA=4;
     public static final int CHAR_S=5;
     public static final int DIGIT=6;
-    public static final int EQUAL=7;
-    public static final int HEXDIGIT=8;
-    public static final int INT=9;
-    public static final int LINE_S=10;
-    public static final int MD5VALUE=11;
-    public static final int MIMECHARS=12;
+    public static final int HEXDIGIT=7;
+    public static final int INT=8;
+    public static final int LINE_S=9;
+    public static final int MD5VALUE=10;
+    public static final int MIMECHARS=11;
 
     // delegates
     public Parser[] getDelegates() {
@@ -156,7 +156,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==14) ) {
+                if ( (LA1_0==13) ) {
                     alt1=1;
                 }
 
@@ -165,7 +165,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
             	case 1 :
             	    // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:101:16: ';' integrityCheck
             	    {
-            	    match(input,14,FOLLOW_14_in_textFragment90); 
+            	    match(input,13,FOLLOW_13_in_textFragment90); 
 
             	    pushFollow(FOLLOW_integrityCheck_in_textFragment92);
             	    integrityCheck2=integrityCheck();
@@ -284,7 +284,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
 
 
     // $ANTLR start "charScheme"
-    // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:126:1: charScheme returns [TextFragmentIdentifier textfragmentIdentifier] : CHAR_S EQUAL range ;
+    // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:126:1: charScheme returns [TextFragmentIdentifier textfragmentIdentifier] : CHAR_S '=' range ;
     public final TextFragmentIdentifier charScheme() throws RecognitionException {
         TextFragmentIdentifier textfragmentIdentifier = null;
 
@@ -293,12 +293,12 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
 
 
         try {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:127:2: ( CHAR_S EQUAL range )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:127:4: CHAR_S EQUAL range
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:127:2: ( CHAR_S '=' range )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:127:4: CHAR_S '=' range
             {
             match(input,CHAR_S,FOLLOW_CHAR_S_in_charScheme159); 
 
-            match(input,EQUAL,FOLLOW_EQUAL_in_charScheme161); 
+            match(input,14,FOLLOW_14_in_charScheme161); 
 
             pushFollow(FOLLOW_range_in_charScheme163);
             range5=range();
@@ -327,7 +327,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
 
 
     // $ANTLR start "lineScheme"
-    // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:134:1: lineScheme returns [TextFragmentIdentifier textfragmentIdentifier] : LINE_S EQUAL range ;
+    // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:134:1: lineScheme returns [TextFragmentIdentifier textfragmentIdentifier] : LINE_S '=' range ;
     public final TextFragmentIdentifier lineScheme() throws RecognitionException {
         TextFragmentIdentifier textfragmentIdentifier = null;
 
@@ -336,12 +336,12 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
 
 
         try {
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:135:2: ( LINE_S EQUAL range )
-            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:135:4: LINE_S EQUAL range
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:135:2: ( LINE_S '=' range )
+            // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:135:4: LINE_S '=' range
             {
             match(input,LINE_S,FOLLOW_LINE_S_in_lineScheme192); 
 
-            match(input,EQUAL,FOLLOW_EQUAL_in_lineScheme194); 
+            match(input,14,FOLLOW_14_in_lineScheme194); 
 
             pushFollow(FOLLOW_range_in_lineScheme196);
             range6=range();
@@ -419,14 +419,14 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
-                    if ( (LA3_0==13) ) {
+                    if ( (LA3_0==12) ) {
                         alt3=1;
                     }
                     switch (alt3) {
                         case 1 :
                             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:143:20: ',' mimeCharset
                             {
-                            match(input,13,FOLLOW_13_in_integrityCheck229); 
+                            match(input,12,FOLLOW_12_in_integrityCheck229); 
 
                             pushFollow(FOLLOW_mimeCharset_in_integrityCheck231);
                             mimeCharset8=mimeCharset();
@@ -465,14 +465,14 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
-                    if ( (LA4_0==13) ) {
+                    if ( (LA4_0==12) ) {
                         alt4=1;
                     }
                     switch (alt4) {
                         case 1 :
                             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:147:17: ',' mimeCharset
                             {
-                            match(input,13,FOLLOW_13_in_integrityCheck250); 
+                            match(input,12,FOLLOW_12_in_integrityCheck250); 
 
                             pushFollow(FOLLOW_mimeCharset_in_integrityCheck252);
                             mimeCharset10=mimeCharset();
@@ -567,7 +567,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
             if ( (LA7_0==INT) ) {
                 alt7=1;
             }
-            else if ( (LA7_0==13) ) {
+            else if ( (LA7_0==12) ) {
                 alt7=2;
             }
             else {
@@ -594,10 +594,10 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                     int alt6=3;
                     int LA6_0 = input.LA(1);
 
-                    if ( (LA6_0==13) ) {
+                    if ( (LA6_0==12) ) {
                         int LA6_1 = input.LA(2);
 
-                        if ( (LA6_1==EOF||LA6_1==14) ) {
+                        if ( (LA6_1==EOF||LA6_1==13) ) {
                             alt6=1;
                         }
                         else if ( (LA6_1==INT) ) {
@@ -608,7 +608,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                         case 1 :
                             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:160:25: comma1= ','
                             {
-                            comma1=(Token)match(input,13,FOLLOW_13_in_range309); 
+                            comma1=(Token)match(input,12,FOLLOW_12_in_range309); 
 
                             }
                             break;
@@ -618,7 +618,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:160:38: (comma2= ',' position2= position )
                             // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:160:39: comma2= ',' position2= position
                             {
-                            comma2=(Token)match(input,13,FOLLOW_13_in_range316); 
+                            comma2=(Token)match(input,12,FOLLOW_12_in_range316); 
 
                             pushFollow(FOLLOW_position_in_range320);
                             position2=position();
@@ -657,7 +657,7 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
                     // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:171:5: ( ',' position )
                     // C:\\data\\eclipse_workspace\\fragment-context\\grammars\\urifragidentplaintext\\URIFragmentIdentifierPlainText.g:171:6: ',' position
                     {
-                    match(input,13,FOLLOW_13_in_range335); 
+                    match(input,12,FOLLOW_12_in_range335); 
 
                     pushFollow(FOLLOW_position_in_range337);
                     position();
@@ -832,34 +832,34 @@ public class URIFragmentIdentifierPlainTextParser extends Parser {
 
     public static final BitSet FOLLOW_textFragment_in_start67 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_start69 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_textScheme_in_textFragment87 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_14_in_textFragment90 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_integrityCheck_in_textFragment92 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_textScheme_in_textFragment87 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_13_in_textFragment90 = new BitSet(new long[]{0x0000000000018000L});
+    public static final BitSet FOLLOW_integrityCheck_in_textFragment92 = new BitSet(new long[]{0x0000000000002002L});
     public static final BitSet FOLLOW_lineScheme_in_textScheme121 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_charScheme_in_textScheme131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CHAR_S_in_charScheme159 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_EQUAL_in_charScheme161 = new BitSet(new long[]{0x0000000000002200L});
+    public static final BitSet FOLLOW_CHAR_S_in_charScheme159 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_charScheme161 = new BitSet(new long[]{0x0000000000001100L});
     public static final BitSet FOLLOW_range_in_charScheme163 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LINE_S_in_lineScheme192 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_EQUAL_in_lineScheme194 = new BitSet(new long[]{0x0000000000002200L});
+    public static final BitSet FOLLOW_LINE_S_in_lineScheme192 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_lineScheme194 = new BitSet(new long[]{0x0000000000001100L});
     public static final BitSet FOLLOW_range_in_lineScheme196 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_lengthScheme_in_integrityCheck225 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_integrityCheck229 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_lengthScheme_in_integrityCheck225 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_integrityCheck229 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_mimeCharset_in_integrityCheck231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_md5Scheme_in_integrityCheck247 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_integrityCheck250 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_md5Scheme_in_integrityCheck247 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_integrityCheck250 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_mimeCharset_in_integrityCheck252 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_INT_in_position278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_position_in_range304 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_range309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_range316 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_position_in_range304 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_range309 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_range316 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_position_in_range320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_range335 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_12_in_range335 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_position_in_range337 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_lengthScheme369 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_15_in_lengthScheme369 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_INT_in_lengthScheme371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_md5Scheme397 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_16_in_md5Scheme397 = new BitSet(new long[]{0x0000000000000400L});
     public static final BitSet FOLLOW_MD5VALUE_in_md5Scheme399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MIMECHARS_in_mimeCharset423 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_MIMECHARS_in_mimeCharset423 = new BitSet(new long[]{0x0000000000000802L});
 
 }

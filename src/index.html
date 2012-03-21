@@ -15,23 +15,23 @@ Web Services for creating, verifying and repairing
 currently only 'text/plain' 
 
 <h2>/create</h2>
-create a constraint from a given range. for plain text the expressions follow 
+create one or more constraints from a given range. for plain text the expressions follow 
 <a href="http://tools.ietf.org/html/rfc5147">RFC 5147</a> <br>
 example: POST JSON like:<br>
 <pre>
-{ 
+[{ 
 	"uri" : "http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57", 
 	"constraint" : 
 	{ 
 		"position" : "line=51,57"
 	}
-}
+}]
 </pre>
 <br>
 answer:
 <br>
 <pre>
-{
+[{
 	"constraint": 
 	{
 		"position":"line=51,57",
@@ -39,15 +39,16 @@ answer:
 		"checksum":"3e899c5d9f39cbf8be8d42ad2ef74605"
 	},
 	"uri":"http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57"
-}
+	"constraint_type":"RFC_5147"
+}]
 </pre>
 
 <h2>/match</h2>
-verify and match a given constraint in relation to its primary source target<br>
+verify and match one or more given constraints in relation to its primary source target<br>
 example: POST JSON like: 
 <br>
 <pre>
-{
+[{
 	"constraint": 
 	{
 		"position":"line=51,57",
@@ -55,7 +56,7 @@ example: POST JSON like:
 		"checksum":"3e899c5d9f39cbf8be8d42ad2ef74605"
 	},
 	"uri":"http://www.gutenberg.org/cache/epub/11/pg11.txt#line=51,57"
-}
+}]
 </pre>
 <br>
 answer:
@@ -64,7 +65,8 @@ if the primary source target had changed but a match has been foumd the service 
 constraint on a character range bases, for example when checking the gutenberg text constraint against a slightly
 modified version of it:
 <pre>
-{
+[{
+	"state":"modified"
 	"constraint": 
 	{
 		"position":"char=1268,1563",
@@ -72,11 +74,11 @@ modified version of it:
 		"checksum":"6bf49233aada715a9e797af33b35c8d6"
 	},
 	"uri":"http://87.106.12.254/alice_modified.txt#char=1268,1563"
-}
+}]
 </pre>
 <br>
-<p>In case verification succeeds the original constraint is returned.</p> 
-<p>In case the verification fails and the a match can not be found a 409 conflict error is signaled.</p>
+<p>in case verification succeeds the original constraint is returned, "state" is set to "success"</p> 
+<p>in case the verification fails and a match can not be found "state" is set to "failure"</p>
 </div>
 </body>
 </html>

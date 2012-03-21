@@ -2,6 +2,8 @@ package eu.interedition.fragmentContext.text.urifragident;
 
 
 public class CharFragmentIdentifier extends TextFragmentIdentifier {
+	
+	public static final String SCHEME_NAME = "char";
 
 	public CharFragmentIdentifier(Range range) {
 		super();
@@ -9,13 +11,8 @@ public class CharFragmentIdentifier extends TextFragmentIdentifier {
 	}
 
 	@Override
-	public String getTextFragmentFrom(String primarySource) {
-		return primarySource.substring(getStartPos(), getEndPos());
-	}
-
-	@Override
 	public String getTextSchemeName() {
-		return "char=";
+		return SCHEME_NAME + "=";
 	}
 
 }

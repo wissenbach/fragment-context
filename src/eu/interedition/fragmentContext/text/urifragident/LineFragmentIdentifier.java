@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class LineFragmentIdentifier extends TextFragmentIdentifier {
 	
+	public final static String SCHEME_NAME = "line";
+	
 	public LineFragmentIdentifier(Range range) {
 		super();
 		setRange(range);
@@ -32,7 +34,9 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 			if (linePosition == line) {
 				return characterPos;
 			}
-			characterPos+=curLine.length()+1;
+			characterPos+=curLine.length()
+					+ (scanner.match().group(1)==null ? 0 : scanner.match().group(1).length());
+			
 			linePosition++;
 		}
 				
@@ -40,26 +44,7 @@ public class LineFragmentIdentifier extends TextFragmentIdentifier {
 	}
 
 	@Override
-	public String getTextFragmentFrom(String primarySource) {
-		StringBuilder lineRecorder = new StringBuilder();
-		Scanner scanner = new Scanner(primarySource);
-		int linePosition=0;
-		while(scanner.hasNextLine()) {
-			String curLine = scanner.nextLine();
-			if ((linePosition >= getStartPos()) && (linePosition < getEndPos())) {
-				lineRecorder.append(curLine);
-			}
-			else if (linePosition >= getEndPos()) {
-				break;
-			}
-			linePosition++;
-		}
-		
-		return lineRecorder.toString();
-	}
-
-	@Override
 	public String getTextSchemeName() {
-		return "line=";
+		return SCHEME_NAME + "=";
 	}
 }

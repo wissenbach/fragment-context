@@ -1,5 +1,7 @@
 package eu.interedition.fragmentContext;
 
+import eu.interedition.fragmentContext.text.TextConstraint;
+
 
 public interface Context {
 
@@ -12,6 +14,9 @@ public interface Context {
 
 	public boolean verify(Primary primary);
 	
-	public Constraint match(Primary primary) throws Context.NoMatchFoundException;
+	//public Constraint match(Primary primary) throws Context.NoMatchFoundException;
+
+	public Constraint match(Primary primary, TextConstraint originalConstraint)
+			throws NoMatchFoundException;
 	
 }
